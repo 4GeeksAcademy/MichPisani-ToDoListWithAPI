@@ -1,28 +1,72 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
+import NewTodoForm from "./NewTodoForm"
+import TodoList from "./TodoList";
+import TodoItem from "./TodoItem";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
+
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+   
+    const [todos, setTodos] = useState(() => {
+        const localValue = localStorage.getItem("Items")
+        if(localValue == null) return []
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+        return JSON.parse(localValue)
+    })
+
+    useEffect(() => {
+        localStorage.setItem("Items", JSON.stringify(todos))
+    },[todos])
+
+    function addTodo(title, id){
+        
+        //currentTodos = al estado actual 
+        setTodos(currentTodos => {
+            return[
+                ...currentTodos,
+                { title, id, completed: false},
+                
+                
+            ]
+        })
+
+    }
+    
+    function toggleTodo(id, completed) {
+        setTodos(currentTodos =>{
+            return (
+                currentTodos.map(todo => {
+                    if(todo.id === id){
+                        return {...todo, completed}
+                        
+                    }
+                    return todo
+                })
+            )
+        
+        })
+    }
+
+    function deleteTodo(id) {
+        setTodos(currentTodos => {
+            return(
+                currentTodos.filter(todo => todo.id != id)
+            )
+        })
+    }
+    
+    
+    return (
+        <div className="container">
+            <NewTodoForm addTodo={addTodo}/>
+            <h3 className="header"> To Do List</h3>    
+            <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo}/>
+   
+        </div>
+
+    )
+
+	
 };
 
 export default Home;
