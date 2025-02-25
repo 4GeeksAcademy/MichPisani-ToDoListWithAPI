@@ -1,25 +1,27 @@
 
   body {
-    background:rgb(173, 220, 251); 
+    background:rgb(198, 227, 248); 
     color: rgb(37, 38, 39);
     padding: 4%;
+
     
   }
 
-  .container{
-    width: 60vh;
-    height: 60vh;
+  .container-fluid{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  
+
   .form {
     font-size: large;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+  }
+
+  #select{
+    font-size: large;
   }
   
   
@@ -27,6 +29,8 @@
     border: 1px solid rgb(114, 192, 248);
     background: rgb(58, 130, 207);
     color: whitesmoke;
+    margin-top: 5px;
+    
   }
   
   .header {
@@ -62,6 +66,10 @@
   }
 
   .list li:hover > .btn.btn-danger{
+    display: block;
+  }
+
+  #delete-all{
     display: block;
   }
 
